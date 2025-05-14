@@ -22,7 +22,7 @@
   // ────────────────────────────────────────────────────────────────────────────
   await Promise.all(
     binSizes.map(bs =>
-      d3.json(`data/hourly_${bs}min.json`)
+      d3.json(`../data/hourly_${bs}min.json`)
         .then(data => dataByBin[bs] = data)
     )
   );
