@@ -6,7 +6,7 @@
   const metricOptions = {
     activity_mean: "Activity",
     temperature_mean: "Temperature",
-    ratio: "Temp / Activity"
+    ratio_mean: "Temp / Activity"
   };
 
   let state = {
@@ -32,7 +32,7 @@
   // ────────────────────────────────────────────────────────────────────────────
   const dayMinInput = d3.select("#day-min");
   const dayMaxInput = d3.select("#day-max");
-  const rangeLabel  = d3.select("#range-label");
+  const rangeLabel = d3.select("#range-label");
   const binSelect = d3.select("#bin-select");
   const metricButtons = d3.selectAll(".toggle-button");
   const subtitle = d3.select("#subtitle");
@@ -42,27 +42,23 @@
     rangeLabel.text(`${d0}-${d1}`);
   }
 
-  dayMinInput
-    .on("input", function() {
-      const d0 = +this.value;
-      const d1 = state.dayRange[1];
-      if (d0 <= d1) {
-        state.dayRange[0] = d0;
-        updateRangeLabel();
-        updateChart();
-      }
-    });
+  dayMinInput.on("input", function() {
+    const d0 = +this.value, d1 = state.dayRange[1];
+    if (d0 <= d1) {
+      state.dayRange[0] = d0;
+      updateRangeLabel();
+      updateChart();
+    }
+  });
 
-  dayMaxInput
-    .on("input", function() {
-      const d1 = +this.value;
-      const d0 = state.dayRange[0];
-      if (d1 >= d0) {
-        state.dayRange[1] = d1;
-        updateRangeLabel();
-        updateChart();
-      }
-    });
+  dayMaxInput.on("input", function() {
+    const d1 = +this.value, d0 = state.dayRange[0];
+    if (d1 >= d0) {
+      state.dayRange[1] = d1;
+      updateRangeLabel();
+      updateChart();
+    }
+  });
 
   binSelect.on("change", function() {
     state.binSize = +this.value;
@@ -145,55 +141,49 @@
     svgEl.attr("width", width + margin.left + margin.right);
 
     const raw = dataByBin[state.binSize];
-
     const filt = raw.filter(d =>
       d.day >= state.dayRange[0] && d.day <= state.dayRange[1]
     );
 
+    // pick the correct field for aggregation
+    const key = state.metric === "ratio_mean" ? "ratio" : state.metric;
+
     const rolls = d3.rollups(
       filt,
-      v => d3.mean(v, d => +d[state.metric]),
+      v => d3.mean(v, d => +d[key]),
       d => +d.bin
     );
-    const data = rolls
-      .map(([bin, val]) => ({ bin, value: val }))
-      .sort((a,b) => a.bin - b.bin);
 
+    const data = rolls.map(([bin,val]) => ({ bin, value: val })).sort((a,b) => a.bin - b.bin);
 
     const xScale = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.bin))
-      .range([0, width]);
+      .domain(d3.extent(data, d => d.bin)).range([0, width]);
     const yScale = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.value))
-      .nice()
+      .domain(d3.extent(data, d => d.value)).nice()
       .range([height, 0]);
 
-
-    xAxisG
-      .call(d3.axisBottom(xScale).ticks(8))
-      .selectAll("text").style("font-size", "10px");
-    yAxisG
-      .call(d3.axisLeft(yScale).ticks(6))
-      .selectAll("text").style("font-size", "10px");
+    xAxisG.call(d3.axisBottom(xScale).ticks(8)).selectAll("text").style("font-size","10px");
+    yAxisG.call(d3.axisLeft(yScale).ticks(6)).selectAll("text").style("font-size","10px");
 
     yLabel.text(metricOptions[state.metric]);
 
     const lineGen = d3.line()
       .x(d => xScale(d.bin))
       .y(d => yScale(d.value));
-    linePath
-      .datum(data)
+
+    linePath.datum(data)
       .transition().duration(300)
       .attr("d", lineGen);
 
+    // redraw annotations
     annG.selectAll("*").remove();
     [0, 720 / state.binSize].forEach((b,i) => {
       annG.append("line")
-        .attr("class", "annotation-line")
+        .attr("class","annotation-line")
         .attr("x1", xScale(b)).attr("x2", xScale(b))
         .attr("y1", 0).attr("y2", height);
       annG.append("text")
-        .attr("class", "annotation-text")
+        .attr("class","annotation-text")
         .attr("x", xScale(b) + 4)
         .attr("y", -4)
         .text(i===0 ? "Lights Off" : "Lights On");
@@ -203,28 +193,29 @@
       .attr("width", width)
       .attr("height", height)
       .on("mousemove", (event) => {
-        const [mx, my] = d3.pointer(event);
+        const [mx] = d3.pointer(event);
         const bin = Math.round(xScale.invert(mx));
         const match = data.find(d => d.bin === bin);
         if (!match) return;
-        tooltip
-          .html(`Bin: <strong>${bin}</strong><br>
-                 ${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`)
-          .style("opacity",1)
-          .style("left", (event.pageX + 10) + "px")
-          .style("top", (event.pageY + 10) + "px");
+        tooltip.html(
+          `Bin: <strong>${bin}</strong><br>` +
+          `${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`
+        )
+        .style("opacity",1)
+        .style("left", (event.pageX + 10) + "px")
+        .style("top", (event.pageY + 10) + "px");
       })
       .on("mouseout", () => tooltip.style("opacity",0));
 
     subtitle.html(
-      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>,
-       bin = <strong>${state.binSize} min</strong>,
-       metric = <strong>${metricOptions[state.metric]}</strong>`
+      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>, ` +
+      `bin = <strong>${state.binSize} min</strong>, ` +
+      `metric = <strong>${metricOptions[state.metric]}</strong>`
     );
   }
 
+  // initial render & resize handling
   updateChart();
-
   window.addEventListener("resize", updateChart);
 
 })();
