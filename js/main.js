@@ -236,12 +236,6 @@
           .attr("y", height + margin.bottom + 4)
           .text(`Day ${day}`);
       });
-  
-      // section header insertion (unchanged)
-      d3.select(containerId)
-        .insert("h3",":first-child")
-        .text(containerId.includes("activity") ? 
-              "Activity (60-min bins)" : "Temperature (60-min bins)");
     }
   
     drawGrid("#activity-grid", "activity_mean");
