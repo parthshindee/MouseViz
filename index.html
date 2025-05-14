@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Mouse Estrus Explorer</title>
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" />
-    </head>
-    <body>
-        <h1>Mouse Estrus Explorer</h1>
+<head>
+  <meta charset="UTF-8" />
+  <title>Mouse Estrus Explorer</title>
+  <link rel="stylesheet" href="css/styles.css" />
 
-        <!-- Control Bar -->
-        <div id="controls">
-            <div class="control-group">
-                <label for="day-slider">Days:</label>
-                <div id="day-slider"></div>
-                <span id="range-label">0-13</span>
-            </div>
+  <!-- noUiSlider CSS -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" />
+</head>
+<body>
+  <h1>Mouse Estrus Explorer</h1>
 
-            <div class="control-group">
-                <label for="bin-select">Bin Size:</label>
-                <select id="bin-select">
-                    <option value="5">5 min</option>
-                    <option value="15">15 min</option>
-                    <option value="30">30 min</option>
-                    <option value="60" selected>60 min</option>
-                </select>
-            </div>
+  <!-- Control Bar -->
+  <div id="controls">
+    <!-- Day-Range Slider -->
+    <div class="control-group">
+      <label for="day-slider">Days:</label>
+      <div id="day-slider"></div>
+      <span id="range-label">0-13</span>
+    </div>
 
-            <div class="control-group" id="metric-toggle">
-                <label>Metric:</label>
-                <button class="toggle-button active" data-metric="activity_mean">Activity</button>
-                <button class="toggle-button" data-metric="temperature_mean">Temperature</button>
-                <button class="toggle-button" data-metric="ratio_mean">Ratio</button>
-            </div>
-        </div>
+    <!-- Bin-Size Dropdown -->
+    <div class="control-group">
+      <label for="bin-select">Bin Size:</label>
+      <select id="bin-select">
+        <option value="5">5 min</option>
+        <option value="15">15 min</option>
+        <option value="30">30 min</option>
+        <option value="60" selected>60 min</option>
+      </select>
+    </div>
 
-        <!-- Subtitle: documents current transformation state -->
-        <div id="subtitle">
-            Showing days <strong>0-13</strong>, bin = <strong>60 min</strong>, metric = <strong>Activity</strong>
-        </div>
+    <!-- Metric Toggle -->
+    <div class="control-group" id="metric-toggle">
+      <label>Metric:</label>
+      <button class="toggle-button active"
+              data-metric="activity_mean">Activity</button>
+      <button class="toggle-button"
+              data-metric="temperature_mean">Temperature</button>
+      <button class="toggle-button"
+              data-metric="ratio_mean">Ratio</button>
+    </div>
+  </div>
 
-        <!-- Main chart container -->
-        <div id="chart-container">
-            <svg id="main-chart"></svg>
-        </div>
+  <!-- Subtitle -->
+  <div id="subtitle">
+    Showing days <strong>0-13</strong>, bin = <strong>60 min</strong>, metric = <strong>Activity</strong>
+  </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
-        <script src="https://d3js.org/d3.v7.min.js"></script>
-        <script src="js/main.js"></script>
-    </body>
+  <!-- Chart -->
+  <div id="chart-container">
+    <svg id="main-chart"></svg>
+  </div>
+
+  <!-- noUiSlider JS -->
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js">
+  </script>
+  <!-- D3 -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
 </html>
-
