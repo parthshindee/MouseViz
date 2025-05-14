@@ -12,9 +12,13 @@
         <div id="controls">
             <div class="control-group">
                 <label for="day-min">Days:</label>
-                <input type="range" id="day-min" min="0" max="13" value="0">
-                <input type="range" id="day-max" min="0" max="13" value="13">
-                <span id="range-label">0-13</span>
+                <div class="control-group">
+                    <label for="day-slider">Days:</label>
+                    <div id="day-slider"></div>
+                    <span id="range-label">0-13</span>
+                </div>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"/>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
             </div>
 
             <div class="control-group">

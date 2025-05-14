@@ -30,12 +30,29 @@
   // ────────────────────────────────────────────────────────────────────────────
   // Set up controls
   // ────────────────────────────────────────────────────────────────────────────
-  const dayMinInput = d3.select("#day-min");
-  const dayMaxInput = d3.select("#day-max");
   const rangeLabel = d3.select("#range-label");
   const binSelect = d3.select("#bin-select");
   const metricButtons = d3.selectAll(".toggle-button");
   const subtitle = d3.select("#subtitle");
+
+  const daySlider = document.getElementById("day-slider");
+  noUiSlider.create(daySlider, {
+    start: state.dayRange,
+    connect: true,
+    step: 1,
+    range: { min: 0, max: 13 },
+    tooltips: [ true, true ],
+    format: {
+      to: v => Math.round(v),
+      from: v => Math.round(v)
+    }
+  });
+
+  daySlider.noUiSlider.on("update", values => {
+    state.dayRange = values.map(v=>+v);
+    rangeLabel.text(`${state.dayRange[0]}-${state.dayRange[1]}`);
+    updateChart();
+  });
 
   function updateRangeLabel() {
     const [d0, d1] = state.dayRange;
@@ -113,6 +130,13 @@
     .attr("text-anchor", "middle")
     .style("font-size", "12px");
 
+  const xLabel = svg.append("text")
+    .attr("class","axis-label")
+    .attr("x", width/2)
+    .attr("y", height + margin.bottom - 4)
+    .attr("text-anchor","middle")
+    .style("font-size","12px");
+
   // line path
   const linePath = svg.append("path")
     .attr("class","line")
@@ -163,8 +187,9 @@
       .range([height, 0]);
 
     xAxisG.call(d3.axisBottom(xScale).ticks(8)).selectAll("text").style("font-size","10px");
-    yAxisG.call(d3.axisLeft(yScale).ticks(6)).selectAll("text").style("font-size","10px");
+    xLabel.text(`Time of day (bin = ${state.binSize} min)`);
 
+    yAxisG.call(d3.axisLeft(yScale).ticks(6)).selectAll("text").style("font-size","10px");
     yLabel.text(metricOptions[state.metric]);
 
     const lineGen = d3.line()
@@ -207,9 +232,22 @@
       })
       .on("mouseout", () => tooltip.style("opacity",0));
 
+    const allBins = dataByBin[state.binSize];
+    const estrusDays = Array.from(
+      new Set(
+        allBins
+          .filter(d => state.dayRange[0] <= d.day && d.day <= state.dayRange[1] && d.estrus)
+          .map(d => d.day)
+      )
+    ).sort((a,b)=>a-b);
+
+    // update subtitle
     subtitle.html(
-      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>, ` +
-      `bin = <strong>${state.binSize} min</strong>, ` +
+      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>` +
+      (estrusDays.length
+        ? ` (estrus: ${estrusDays.join(", ")})`
+        : "") +
+      `, bin = <strong>${state.binSize} min</strong>, ` +
       `metric = <strong>${metricOptions[state.metric]}</strong>`
     );
   }
@@ -217,5 +255,4 @@
   // initial render & resize handling
   updateChart();
   window.addEventListener("resize", updateChart);
-
 })();
