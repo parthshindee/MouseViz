@@ -8,14 +8,16 @@
 <body>
     <h1>Female Mouse Activity & Temperature by Day</h1>
     
-    <section id="legend">
-        <svg width="200" height="30">
-            <rect x="10" y="5" width="15" height="15" fill="#888"/>
-            <text x="30" y="17">Non-Estrus</text>
-            <rect x="110" y="5" width="15" height="15" fill="#d62728"/>
-            <text x="130" y="17">Estrus</text>
-        </svg>
-    </section>
+    <div id="legend">
+        <div class="legend-item">
+            <div class="color-box"></div>
+            <span>Non-Estrus</span>
+        </div>
+        <div class="legend-item estrus">
+            <div class="color-box"></div>
+            <span>Estrus</span>
+        </div>
+    </div>    
 
     <h2>Activity (60-min bins)</h2>
     <div id="activity-grid" class="grid"></div>
