@@ -9,5 +9,3 @@
 # Dependencies
 node_modules/
 
-# Made Analysis "Locked"
-eda/*.ipynb
