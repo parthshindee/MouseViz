@@ -1,0 +1,10 @@
+# MacOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Secrets
+.env
+
+# Dependencies
+node_modules/
