@@ -35,8 +35,8 @@
   const metricButtons = d3.selectAll(".toggle-button");
   const subtitle = d3.select("#subtitle");
 
-  const daySlider = document.getElementById("day-slider");
-  noUiSlider.create(daySlider, {
+  const daySliderEl = document.getElementById("day-slider");
+  noUiSlider.create(daySliderEl, {
     start: state.dayRange,
     connect: true,
     step: 1,
@@ -48,33 +48,10 @@
     }
   });
 
-  daySlider.noUiSlider.on("update", values => {
-    state.dayRange = values.map(v=>+v);
+  daySliderEl.noUiSlider.on("update", values => {
+    state.dayRange = values.map(v => +v);
     rangeLabel.text(`${state.dayRange[0]}-${state.dayRange[1]}`);
     updateChart();
-  });
-
-  function updateRangeLabel() {
-    const [d0, d1] = state.dayRange;
-    rangeLabel.text(`${d0}-${d1}`);
-  }
-
-  dayMinInput.on("input", function() {
-    const d0 = +this.value, d1 = state.dayRange[1];
-    if (d0 <= d1) {
-      state.dayRange[0] = d0;
-      updateRangeLabel();
-      updateChart();
-    }
-  });
-
-  dayMaxInput.on("input", function() {
-    const d1 = +this.value, d0 = state.dayRange[0];
-    if (d1 >= d0) {
-      state.dayRange[1] = d1;
-      updateRangeLabel();
-      updateChart();
-    }
   });
 
   binSelect.on("change", function() {
@@ -88,9 +65,6 @@
     state.metric = d3.select(this).attr("data-metric");
     updateChart();
   });
-
-  // initialize range label
-  updateRangeLabel();
 
   // ────────────────────────────────────────────────────────────────────────────
   // SVG & scales setup
@@ -115,11 +89,8 @@
     .attr("transform", `translate(${margin.left},${margin.top})`);
 
   // axes groups
-  const xAxisG = svg.append("g")
-    .attr("class", "x-axis")
-    .attr("transform", `translate(0,${height})`);
-  const yAxisG = svg.append("g")
-    .attr("class", "y-axis");
+  const xAxisG = svg.append("g").attr("class","x-axis").attr("transform",`translate(0,${height})`);
+  const yAxisG = svg.append("g").attr("class","y-axis");
 
   // axis labels
   const yLabel = svg.append("text")
@@ -164,90 +135,103 @@
     width = getWidth();
     svgEl.attr("width", width + margin.left + margin.right);
 
-    const raw = dataByBin[state.binSize];
-    const filt = raw.filter(d =>
-      d.day >= state.dayRange[0] && d.day <= state.dayRange[1]
-    );
+    const raw  = dataByBin[state.binSize],
+          filt = raw.filter(d =>
+            d.day >= state.dayRange[0] &&
+            d.day <= state.dayRange[1]
+          );
 
     // pick the correct field for aggregation
     const key = state.metric === "ratio_mean" ? "ratio" : state.metric;
 
     const rolls = d3.rollups(
       filt,
-      v => d3.mean(v, d => +d[key]),
+      vs => d3.mean(vs, d => +d[key]),
       d => +d.bin
     );
 
-    const data = rolls.map(([bin,val]) => ({ bin, value: val })).sort((a,b) => a.bin - b.bin);
+    const data = rolls
+      .map(([bin,val]) => ({ bin, value: val }))
+      .sort((a,b)=>a.bin - b.bin);
 
     const xScale = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.bin)).range([0, width]);
+      .domain(d3.extent(data, d=>d.bin))
+      .range([0, width]);
     const yScale = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.value)).nice()
+      .domain(d3.extent(data, d=>d.value))
+      .nice()
       .range([height, 0]);
 
-    xAxisG.call(d3.axisBottom(xScale).ticks(8)).selectAll("text").style("font-size","10px");
-    xLabel.text(`Time of day (bin = ${state.binSize} min)`);
+    // axes
+    xAxisG.call(d3.axisBottom(xScale).ticks(8))
+      .selectAll("text").style("font-size","10px");
+    yAxisG.call(d3.axisLeft(yScale).ticks(6))
+      .selectAll("text").style("font-size","10px");
 
-    yAxisG.call(d3.axisLeft(yScale).ticks(6)).selectAll("text").style("font-size","10px");
+    // axis labels
+    xLabel.text(`Time of day (bin = ${state.binSize} min)`);
     yLabel.text(metricOptions[state.metric]);
 
+    // line
     const lineGen = d3.line()
-      .x(d => xScale(d.bin))
-      .y(d => yScale(d.value));
-
+      .x(d=>xScale(d.bin))
+      .y(d=>yScale(d.value));
     linePath.datum(data)
       .transition().duration(300)
       .attr("d", lineGen);
 
     // redraw annotations
     annG.selectAll("*").remove();
-    [0, 720 / state.binSize].forEach((b,i) => {
+    [0, 720/state.binSize].forEach((b,i) => {
       annG.append("line")
-        .attr("class","annotation-line")
-        .attr("x1", xScale(b)).attr("x2", xScale(b))
-        .attr("y1", 0).attr("y2", height);
+          .attr("class","annotation-line")
+          .attr("x1", xScale(b))
+          .attr("x2", xScale(b))
+          .attr("y1", 0)
+          .attr("y2", height);
       annG.append("text")
-        .attr("class","annotation-text")
-        .attr("x", xScale(b) + 4)
-        .attr("y", -4)
-        .text(i===0 ? "Lights Off" : "Lights On");
+          .attr("class","annotation-text")
+          .attr("x", xScale(b)+4)
+          .attr("y", -4)
+          .text(i===0 ? "Lights Off" : "Lights On");
     });
 
     hoverRect
-      .attr("width", width)
+      .attr("width",  width)
       .attr("height", height)
-      .on("mousemove", (event) => {
-        const [mx] = d3.pointer(event);
-        const bin = Math.round(xScale.invert(mx));
-        const match = data.find(d => d.bin === bin);
-        if (!match) return;
+      .on("mousemove", event => {
+        const [mx] = d3.pointer(event),
+              bin = Math.round(xScale.invert(mx)),
+              m   = data.find(d=>d.bin===bin);
+        if (!m) return;
         tooltip.html(
-          `Bin: <strong>${bin}</strong><br>` +
-          `${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`
+          `Bin: <strong>${bin}</strong><br>`+
+          `${metricOptions[state.metric]}: <strong>${m.value.toFixed(2)}</strong>`
         )
         .style("opacity",1)
-        .style("left", (event.pageX + 10) + "px")
-        .style("top", (event.pageY + 10) + "px");
+        .style("left", (event.pageX+10)+"px")
+        .style("top",  (event.pageY+10)+"px");
       })
-      .on("mouseout", () => tooltip.style("opacity",0));
+      .on("mouseout", ()=> tooltip.style("opacity",0));
 
-    const allBins = dataByBin[state.binSize];
+    // estrus days in subtitle
     const estrusDays = Array.from(
-      new Set(
-        allBins
-          .filter(d => state.dayRange[0] <= d.day && d.day <= state.dayRange[1] && d.estrus)
-          .map(d => d.day)
-      )
+      new Set(raw
+        .filter(d =>
+          d.day >= state.dayRange[0] &&
+          d.day <= state.dayRange[1] &&
+          d.estrus
+        )
+        .map(d => d.day))
     ).sort((a,b)=>a-b);
 
     // update subtitle
     subtitle.html(
       `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>` +
       (estrusDays.length
-        ? ` (estrus: ${estrusDays.join(", ")})`
-        : "") +
-      `, bin = <strong>${state.binSize} min</strong>, ` +
+         ? ` (estrus: ${estrusDays.join(", ")})`
+         : "") +
+      `, bin = <strong>${state.binSize} min</strong>, `+
       `metric = <strong>${metricOptions[state.metric]}</strong>`
     );
   }

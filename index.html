@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <title>Mouse Estrus Explorer</title>
         <link rel="stylesheet" href="css/styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css" />
     </head>
     <body>
         <h1>Mouse Estrus Explorer</h1>
@@ -11,14 +12,9 @@
         <!-- Control Bar -->
         <div id="controls">
             <div class="control-group">
-                <label for="day-min">Days:</label>
-                <div class="control-group">
-                    <label for="day-slider">Days:</label>
-                    <div id="day-slider"></div>
-                    <span id="range-label">0-13</span>
-                </div>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.css"/>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
+                <label for="day-slider">Days:</label>
+                <div id="day-slider"></div>
+                <span id="range-label">0-13</span>
             </div>
 
             <div class="control-group">
@@ -49,6 +45,7 @@
             <svg id="main-chart"></svg>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/14.6.3/nouislider.min.js"></script>
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <script src="js/main.js"></script>
     </body>
