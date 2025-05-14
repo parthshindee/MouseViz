@@ -1,58 +1,100 @@
+/* Base page styling */
 body {
     font-family: sans-serif;
     margin: 20px;
 }
+h1 {
+    margin-bottom: 15px;
+}
   
-h1, h2 {
-    margin-bottom: 5px;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    grid-gap: 10px;
-    margin-bottom: 40px;
-}
-.chart {
-    border: 1px solid #ddd;
-    padding: 5px;
-}
-.chart svg {
-    width: 100%;
-    height: 120px;
-}
-.chart-label {
-    font-size: 10px;
-    text-anchor: middle;
-}
-.tooltip {
-    pointer-events: none;
-}
-
-.chart.selected {
-    outline: 2px solid #d62728;
-    outline-offset: 2px;
-}
-
-#legend {
+/* CONTROL BAR */
+#controls {
     display: flex;
-    gap: 15px;
+    flex-wrap: wrap;
+    gap: 20px;
     align-items: center;
+    margin-bottom: 8px;
 }
-
-#legend .legend-item {
-    display: inline-flex;
+.control-group {
+    display: flex;
     align-items: center;
+    gap: 6px;
 }
-
-#legend .color-box {
-    width: 16px;
-    height: 16px;
-    background-color: #888;
-    margin-right: 6px;
-    display: inline-block;
+.control-group label {
+    font-size: 14px;
+    white-space: nowrap;
 }
-
-#legend .estrus .color-box {
-    background-color: #d62728;
+#controls input[type="range"] {
+    width: 100px;
 }
+#controls select {
+    font-size: 14px;
+    padding: 4px;
+}
+.toggle-button {
+    font-size: 14px;
+    padding: 4px 8px;
+    border: 1px solid #888;
+    background: white;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.toggle-button.active {
+    background: #d62728;
+    color: white;
+    border-color: #d62728;
+}
+  
+/* SUBTITLE */
+#subtitle {
+    font-size: 13px;
+    color: #555;
+    margin-bottom: 12px;
+}
+  
+/* CHART CONTAINER */
+#chart-container {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+  
+/* MAIN SVG */
+#main-chart {
+    width: 100%;
+    height: 400px;
+    display: block;
+}
+  
+/* TOOLTIP */
+.tooltip {
+    position: absolute;
+    pointer-events: none;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 5px 8px;
+    font-size: 12px;
+    opacity: 0;
+}
+  
+/* ANNOTATIONS */
+.annotation-line {
+    stroke: #000;
+    stroke-dasharray: 4 2;
+}
+.annotation-text {
+    font-size: 10px;
+    fill: #000;
+}
+  
+@media (max-width: 600px) {
+    #controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    #controls .control-group {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+  

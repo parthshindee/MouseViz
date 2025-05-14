@@ -1,250 +1,230 @@
-// project/js/main.js
 (async function() {
-    const summary = await d3.json("data/summary_phase1.json");
-    const hourly  = await d3.json("data/hourly_phase1.json");
-    const color   = estrus => estrus ? "#d62728" : "#888";
-  
-    // tooltip
-    const tooltip = d3.select("body").append("div")
-      .attr("class","tooltip")
-      .style("position","absolute")
-      .style("background","rgba(255,255,255,0.9)")
-      .style("padding","5px 8px")
-      .style("border","1px solid #ccc")
-      .style("border-radius","4px")
-      .style("pointer-events","none")
-      .style("font-size","12px")
-      .style("opacity",0);
-  
-    function drawSummary(containerId, metric) {
-        const data  = summary;
-        const isAct = metric === "activity";
-    
-        // dimensions
-        const margin = { top: 30, right: 20, bottom: 30, left: 50 };
-        const width  = 600 - margin.left - margin.right;
-        const height = 200 - margin.top  - margin.bottom;
-    
-        // base SVG
-        const svg = d3.select(containerId)
-          .append("svg")
-            .attr("width",  width  + margin.left + margin.right)
-            .attr("height", height + margin.top  + margin.bottom)
-          .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`);
-    
-        // x & y scales
-        const x0 = d3.scaleLinear()
-          .domain(d3.extent(data, d => d.hour))
-          .range([0, width]);
-        const y  = d3.scaleLinear()
-          .domain(d3.extent(data, d => d[metric + "_mean"]))
-          .nice()
-          .range([height, 0]);
-    
-        // axes groups (for updates)
-        const xAxisG = svg.append("g")
-          .attr("class","x-axis")
-          .attr("transform", `translate(0,${height})`)
-          .call(d3.axisBottom(x0).ticks(8));
-    
-        svg.append("g")
-          .call(d3.axisLeft(y));
-    
-        // annotation lines for lights-off/on (0h & 12h)
-        [0,24].forEach((bin,i) => {
-          svg.append("line")
-            .attr("x1", x0(bin)).attr("x2", x0(bin))
-            .attr("y1", 0).attr("y2", height)
-            .attr("stroke","#000")
-            .attr("stroke-dasharray","4,4");
-          svg.append("text")
-            .attr("x", x0(bin) + 4)
-            .attr("y", i===0 ?  -8 : -8)
-            .style("font-size","10px")
-            .text(i===0 ? "Lights Off" : "Lights On");
-        });
-    
-        // clip‐path so zoom doesn’t overflow
-        svg.append("clipPath")
-          .attr("id",`clip-${metric}`)
-          .append("rect")
-            .attr("width", width)
-            .attr("height", height);
-    
-        // line & area generators (bound to x0)
-        const line = d3.line()
-          .x(d => x0(d.hour))
-          .y(d => y(d[metric + "_mean"]));
-    
-        const area = d3.area()
-          .x(d => x0(d.hour))
-          .y0(d => y(d[metric + "_mean"] - d[metric + "_std"]))
-          .y1(d => y(d[metric + "_mean"] + d[metric + "_std"]));
-    
-        // group for paths (clipped)
-        const pathsG = svg.append("g")
-          .attr("clip-path",`url(#clip-${metric})`);
-    
-        // draw area + line for each estrus group
-        [false, true].forEach(flag => {
-          const grp = data.filter(d => d.estrus === flag);
-          // shaded band
-          pathsG.append("path")
-            .datum(grp)
-            .attr("class","area")
-            .attr("fill", color(flag))
-            .attr("opacity", 0.2)
-            .attr("d", area);
-          // main line
-          pathsG.append("path")
-            .datum(grp)
-            .attr("class","line")
-            .attr("fill","none")
-            .attr("stroke", color(flag))
-            .attr("stroke-width", 1.5)
-            .attr("d", line);
-        });
-    
-        // zoom behavior
-        const zoom = d3.zoom()
-          .scaleExtent([1, 5])
-          .translateExtent([[0, 0], [width, height]])
-          .extent([[0, 0], [width, height]])
-          .on("zoom", event => {
-            const zx = event.transform.rescaleX(x0);
-            // update axes & paths
-            xAxisG.call(d3.axisBottom(zx).ticks(8));
-            pathsG.selectAll("path.area")
-              .attr("d", d3.area()
-                .x(d => zx(d.hour))
-                .y0(d => y(d[metric + "_mean"] - d[metric + "_std"]))
-                .y1(d => y(d[metric + "_mean"] + d[metric + "_std"])));
-            pathsG.selectAll("path.line")
-              .attr("d", d3.line()
-                .x(d => zx(d.hour))
-                .y(d => y(d[metric + "_mean"])));
-          });
-    
-        // transparent rect for zoom capture
-        svg.append("rect")
-          .attr("width", width)
-          .attr("height", height)
-          .style("fill","none")
-          .style("pointer-events","all")
-          .call(zoom);
-    
-        // titles
-        svg.append("text")
-          .attr("x", width/2).attr("y", -16)
-          .attr("text-anchor","middle")
-          .style("font-size","14px")
-          .text(`${metric[0].toUpperCase() + metric.slice(1)} Profile ±1 SD`);
-    
-        svg.append("text")
-          .attr("x", width/2).attr("y", height + margin.bottom - 4)
-          .attr("text-anchor","middle")
-          .style("font-size","12px")
-          .text("30-minute bins");
-    
-        svg.append("text")
-          .attr("transform","rotate(-90)")
-          .attr("y", -margin.left + 12)
-          .attr("x", -height/2)
-          .attr("text-anchor","middle")
-          .style("font-size","12px")
-          .text(isAct ? "Mean Activity" : "Mean Temperature");
-    }
+  // ────────────────────────────────────────────────────────────────────────────
+  // Configuration & state
+  // ────────────────────────────────────────────────────────────────────────────
+  const binSizes = [5, 15, 30, 60]; // available resolutions
+  const metricOptions = {
+    activity_mean: "Activity",
+    temperature_mean: "Temperature",
+    ratio: "Temp / Activity"
+  };
 
-    drawSummary("#summary-activity","activity");
-    drawSummary("#summary-temperature","temperature");
-  
-    // ────────────────────────────────────────────────────────────────────────────
-    // drawGrid with fixed interactivity & label reposition
-    // ────────────────────────────────────────────────────────────────────────────
-    function drawGrid(containerId, metricKey) {
-      const byDay    = d3.group(hourly, d => d.day);
-      const container= d3.select(containerId);
+  let state = {
+    binSize: 60,
+    metric: "activity_mean",
+    dayRange: [0, 13]
+  };
 
-      container.on("click", function(event) {
-        if (event.target === this) {
-          container.selectAll(".chart").classed("selected", false);
-        }
-      });
-  
-      const margin  = { top: 10, right: 5, bottom: 30, left: 25 };
-      const width   = 150 - margin.left - margin.right;
-      const height  = 120 - margin.top  - margin.bottom;
-  
-      const xScale  = d3.scaleLinear()
-        .domain(d3.extent(hourly, d => d.hour))
-        .range([0, width]);
-      const yScale  = d3.scaleLinear()
-        .domain(d3.extent(hourly, d => d[metricKey])).nice()
-        .range([height, 0]);
-  
-      const lineGen = d3.line()
-        .x(d => xScale(d.hour))
-        .y(d => yScale(d[metricKey]));
-  
-      byDay.forEach((records, day) => {
-        const estrusFlag = records[0].estrus;
-  
-        // create cell
-        const cell = container.append("div")
-          .attr("class","chart");
-  
-        // append svg and attach listeners here
-        const svg = cell.append("svg")
-            .attr("width",  width  + margin.left + margin.right)
-            .attr("height", height + margin.top  + margin.bottom)
-          .append("g")
-            .attr("transform", `translate(${margin.left},${margin.top})`)
-          .on("mouseover", (event,d) => {
-            tooltip
-              .html(`Day ${day}<br>${estrusFlag? "Estrus":"Non-Estrus"}`)
-              .style("opacity",1);
-          })
-          .on("mousemove", (event) => {
-            tooltip
-              .style("left",  (event.pageX + 10) + "px")
-              .style("top",   (event.pageY + 10) + "px");
-          })
-          .on("mouseout", () => {
-            tooltip.style("opacity",0);
-          })
-          .on("click", function() {
-            container.selectAll(".chart").classed("selected", false);
-            cell.classed("selected", true);
-            d3.event && d3.event.stopPropagation();
-          });
-  
-        // axes
-        svg.append("g")
-          .call(d3.axisLeft(yScale).ticks(3).tickSize(-width))
-          .selectAll("text").style("font-size","8px");
-        svg.append("g")
-          .attr("transform", `translate(0,${height})`)
-          .call(d3.axisBottom(xScale).ticks(3))
-          .selectAll("text").style("font-size","8px");
-  
-        // line
-        svg.append("path")
-          .datum(records)
-          .attr("fill","none")
-          .attr("stroke", color(estrusFlag))
-          .attr("stroke-width",1.2)
-          .attr("d", lineGen);
-  
-        // day label: lowered by +4px so it sits below the axis ticks
-        svg.append("text")
-          .attr("class","chart-label")
-          .attr("x", width/2)
-          .attr("y", height + margin.bottom - 4)
-          .text(`Day ${day}`);
-      });
-    }
-  
-    drawGrid("#activity-grid", "activity_mean");
-    drawGrid("#temp-grid",     "temperature_mean");
-})(); 
+  const dataByBin = {};
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // Load JSON for each bin size into dataByBin
+  // ────────────────────────────────────────────────────────────────────────────
+  await Promise.all(
+    binSizes.map(bs =>
+      d3.json(`data/hourly_${bs}min.json`)
+        .then(data => dataByBin[bs] = data)
+    )
+  );
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // Set up controls
+  // ────────────────────────────────────────────────────────────────────────────
+  const dayMinInput = d3.select("#day-min");
+  const dayMaxInput = d3.select("#day-max");
+  const rangeLabel  = d3.select("#range-label");
+  const binSelect = d3.select("#bin-select");
+  const metricButtons = d3.selectAll(".toggle-button");
+  const subtitle = d3.select("#subtitle");
+
+  function updateRangeLabel() {
+    const [d0, d1] = state.dayRange;
+    rangeLabel.text(`${d0}-${d1}`);
+  }
+
+  dayMinInput
+    .on("input", function() {
+      const d0 = +this.value;
+      const d1 = state.dayRange[1];
+      if (d0 <= d1) {
+        state.dayRange[0] = d0;
+        updateRangeLabel();
+        updateChart();
+      }
+    });
+
+  dayMaxInput
+    .on("input", function() {
+      const d1 = +this.value;
+      const d0 = state.dayRange[0];
+      if (d1 >= d0) {
+        state.dayRange[1] = d1;
+        updateRangeLabel();
+        updateChart();
+      }
+    });
+
+  binSelect.on("change", function() {
+    state.binSize = +this.value;
+    updateChart();
+  });
+
+  metricButtons.on("click", function() {
+    metricButtons.classed("active", false);
+    d3.select(this).classed("active", true);
+    state.metric = d3.select(this).attr("data-metric");
+    updateChart();
+  });
+
+  // initialize range label
+  updateRangeLabel();
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // SVG & scales setup
+  // ────────────────────────────────────────────────────────────────────────────
+  const container = d3.select("#chart-container");
+  const svgEl = d3.select("#main-chart");
+  const margin = { top: 20, right: 20, bottom: 40, left: 50 };
+  const height = 400 - margin.top - margin.bottom;
+
+  // responsive width
+  function getWidth() {
+    return parseInt(container.style("width")) - margin.left - margin.right;
+  }
+
+  let width = getWidth();
+
+  svgEl
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom);
+
+  const svg = svgEl.append("g")
+    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+  // axes groups
+  const xAxisG = svg.append("g")
+    .attr("class", "x-axis")
+    .attr("transform", `translate(0,${height})`);
+  const yAxisG = svg.append("g")
+    .attr("class", "y-axis");
+
+  // axis labels
+  const yLabel = svg.append("text")
+    .attr("class","axis-label")
+    .attr("transform","rotate(-90)")
+    .attr("x",-height/2)
+    .attr("y",-margin.left + 15)
+    .attr("text-anchor", "middle")
+    .style("font-size", "12px");
+
+  // line path
+  const linePath = svg.append("path")
+    .attr("class","line")
+    .attr("fill","none")
+    .attr("stroke","#d62728")
+    .attr("stroke-width",2);
+
+  // annotations group
+  const annG = svg.append("g").attr("class", "annotations");
+
+  // tooltip
+  const tooltip = d3.select("body").append("div")
+    .attr("class","tooltip");
+
+  // invisible rect for mouse events
+  const hoverRect = svg.append("rect")
+    .attr("class", "hover-rect")
+    .attr("fill", "none")
+    .attr("pointer-events", "all");
+
+  // ────────────────────────────────────────────────────────────────────────────
+  // updateChart: filter, aggregate, redraw
+  // ────────────────────────────────────────────────────────────────────────────
+  function updateChart() {
+    width = getWidth();
+    svgEl.attr("width", width + margin.left + margin.right);
+
+    const raw = dataByBin[state.binSize];
+
+    const filt = raw.filter(d =>
+      d.day >= state.dayRange[0] && d.day <= state.dayRange[1]
+    );
+
+    const rolls = d3.rollups(
+      filt,
+      v => d3.mean(v, d => +d[state.metric]),
+      d => +d.bin
+    );
+    const data = rolls
+      .map(([bin, val]) => ({ bin, value: val }))
+      .sort((a,b) => a.bin - b.bin);
+
+
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.bin))
+      .range([0, width]);
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.value))
+      .nice()
+      .range([height, 0]);
+
+
+    xAxisG
+      .call(d3.axisBottom(xScale).ticks(8))
+      .selectAll("text").style("font-size", "10px");
+    yAxisG
+      .call(d3.axisLeft(yScale).ticks(6))
+      .selectAll("text").style("font-size", "10px");
+
+    yLabel.text(metricOptions[state.metric]);
+
+    const lineGen = d3.line()
+      .x(d => xScale(d.bin))
+      .y(d => yScale(d.value));
+    linePath
+      .datum(data)
+      .transition().duration(300)
+      .attr("d", lineGen);
+
+    annG.selectAll("*").remove();
+    [0, 720 / state.binSize].forEach((b,i) => {
+      annG.append("line")
+        .attr("class", "annotation-line")
+        .attr("x1", xScale(b)).attr("x2", xScale(b))
+        .attr("y1", 0).attr("y2", height);
+      annG.append("text")
+        .attr("class", "annotation-text")
+        .attr("x", xScale(b) + 4)
+        .attr("y", -4)
+        .text(i===0 ? "Lights Off" : "Lights On");
+    });
+
+    hoverRect
+      .attr("width", width)
+      .attr("height", height)
+      .on("mousemove", (event) => {
+        const [mx, my] = d3.pointer(event);
+        const bin = Math.round(xScale.invert(mx));
+        const match = data.find(d => d.bin === bin);
+        if (!match) return;
+        tooltip
+          .html(`Bin: <strong>${bin}</strong><br>
+                 ${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`)
+          .style("opacity",1)
+          .style("left", (event.pageX + 10) + "px")
+          .style("top", (event.pageY + 10) + "px");
+      })
+      .on("mouseout", () => tooltip.style("opacity",0));
+
+    subtitle.html(
+      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>,
+       bin = <strong>${state.binSize} min</strong>,
+       metric = <strong>${metricOptions[state.metric]}</strong>`
+    );
+  }
+
+  updateChart();
+
+  window.addEventListener("resize", updateChart);
+
+})();

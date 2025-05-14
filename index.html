@@ -1,31 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Mouse Estrus: Small-Multiples</title>
-    <link rel="stylesheet" href="css/styles.css">
-</head>
-<body>
-    <h1>Female Mouse Activity & Temperature by Day</h1>
-    
-    <div id="legend">
-        <div class="legend-item">
-            <div class="color-box"></div>
-            <span>Non-Estrus</span>
+    <head>
+        <meta charset="UTF-8">
+        <title>Mouse Estrus Explorer</title>
+        <link rel="stylesheet" href="css/styles.css">
+    </head>
+    <body>
+        <h1>Mouse Estrus Explorer</h1>
+
+        <!-- Control Bar -->
+        <div id="controls">
+            <div class="control-group">
+                <label for="day-min">Days:</label>
+                <input type="range" id="day-min" min="0" max="13" value="0">
+                <input type="range" id="day-max" min="0" max="13" value="13">
+                <span id="range-label">0-13</span>
+            </div>
+
+            <div class="control-group">
+                <label for="bin-select">Bin Size:</label>
+                <select id="bin-select">
+                    <option value="5">5 min</option>
+                    <option value="15">15 min</option>
+                    <option value="30">30 min</option>
+                    <option value="60" selected>60 min</option>
+                </select>
+            </div>
+
+            <div class="control-group" id="metric-toggle">
+                <label>Metric:</label>
+                <button class="toggle-button active" data-metric="activity_mean">Activity</button>
+                <button class="toggle-button" data-metric="temperature_mean">Temperature</button>
+                <button class="toggle-button" data-metric="ratio_mean">Ratio</button>
+            </div>
         </div>
-        <div class="legend-item estrus">
-            <div class="color-box"></div>
-            <span>Estrus</span>
+
+        <!-- Subtitle: documents current transformation state -->
+        <div id="subtitle">
+            Showing days <strong>0-13</strong>, bin = <strong>60 min</strong>, metric = <strong>Activity</strong>
         </div>
-    </div>    
 
-    <h2>Activity (60-min bins)</h2>
-    <div id="activity-grid" class="grid"></div>
+        <!-- Main chart container -->
+        <div id="chart-container">
+            <svg id="main-chart"></svg>
+        </div>
 
-    <h2>Temperature (60-min bins)</h2>
-    <div id="temp-grid" class="grid"></div>
-
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-    <script src="js/main.js"></script>
-</body>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="js/main.js"></script>
+    </body>
 </html>
+
