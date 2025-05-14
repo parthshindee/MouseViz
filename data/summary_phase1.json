@@ -1,0 +1,962 @@
+[
+  {
+    "estrus": false,
+    "hour": 0,
+    "activity_mean": 25.12474640133244,
+    "activity_std": 25.543249343269796,
+    "activity_count": 4290,
+    "temperature_mean": 37.43929371960707,
+    "temperature_std": 0.5985333935883247,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 1,
+    "activity_mean": 35.56765266770716,
+    "activity_std": 27.69206840338088,
+    "activity_count": 4290,
+    "temperature_mean": 37.7610289313534,
+    "temperature_std": 0.5534594633334483,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 2,
+    "activity_mean": 44.756226316177184,
+    "activity_std": 27.939913918352204,
+    "activity_count": 4290,
+    "temperature_mean": 38.14229617734658,
+    "temperature_std": 0.4865995937827104,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 3,
+    "activity_mean": 46.414157511097955,
+    "activity_std": 27.348671133181295,
+    "activity_count": 4290,
+    "temperature_mean": 38.22559340099839,
+    "temperature_std": 0.47425069287419147,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 4,
+    "activity_mean": 44.54703504843059,
+    "activity_std": 26.983160912177617,
+    "activity_count": 4290,
+    "temperature_mean": 38.18609108176489,
+    "temperature_std": 0.46493862453665374,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 5,
+    "activity_mean": 44.97851890631992,
+    "activity_std": 27.4975992604096,
+    "activity_count": 4290,
+    "temperature_mean": 38.186906759906755,
+    "temperature_std": 0.43544577425187453,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 6,
+    "activity_mean": 43.79294607463468,
+    "activity_std": 28.108484078671122,
+    "activity_count": 4290,
+    "temperature_mean": 38.156164323895496,
+    "temperature_std": 0.46992697358748775,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 7,
+    "activity_mean": 41.33083447971599,
+    "activity_std": 27.805431024036107,
+    "activity_count": 4290,
+    "temperature_mean": 38.12018802634214,
+    "temperature_std": 0.49224732431043833,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 8,
+    "activity_mean": 39.62852176840321,
+    "activity_std": 28.412368430109222,
+    "activity_count": 4290,
+    "temperature_mean": 38.047030303030304,
+    "temperature_std": 0.5506985678037729,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 9,
+    "activity_mean": 38.77870439755231,
+    "activity_std": 29.034671746128677,
+    "activity_count": 4290,
+    "temperature_mean": 38.023473193473194,
+    "temperature_std": 0.5386761856366603,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 10,
+    "activity_mean": 37.82419804044813,
+    "activity_std": 28.94364565050458,
+    "activity_count": 4290,
+    "temperature_mean": 38.00970163170163,
+    "temperature_std": 0.5571285460774914,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 11,
+    "activity_mean": 36.404362681115856,
+    "activity_std": 28.3972285133546,
+    "activity_count": 4290,
+    "temperature_mean": 38.001023310023314,
+    "temperature_std": 0.5809409416052776,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 12,
+    "activity_mean": 39.096709162834586,
+    "activity_std": 28.431691130756413,
+    "activity_count": 4290,
+    "temperature_mean": 38.00686480186481,
+    "temperature_std": 0.6013538645499952,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 13,
+    "activity_mean": 39.39558577087937,
+    "activity_std": 28.288824928109634,
+    "activity_count": 4290,
+    "temperature_mean": 37.984272727272725,
+    "temperature_std": 0.5650118342061489,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 14,
+    "activity_mean": 38.741927999259325,
+    "activity_std": 29.35034485722003,
+    "activity_count": 4290,
+    "temperature_mean": 37.89775757575757,
+    "temperature_std": 0.6135586673299709,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 15,
+    "activity_mean": 35.107623474652314,
+    "activity_std": 29.425154632014458,
+    "activity_count": 4290,
+    "temperature_mean": 37.78757808857809,
+    "temperature_std": 0.6565830950987707,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 16,
+    "activity_mean": 33.454680486496514,
+    "activity_std": 29.396902404842496,
+    "activity_count": 4290,
+    "temperature_mean": 37.71876456876457,
+    "temperature_std": 0.701141302582172,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 17,
+    "activity_mean": 31.98319589218442,
+    "activity_std": 29.352043558353568,
+    "activity_count": 4290,
+    "temperature_mean": 37.64075291375291,
+    "temperature_std": 0.6861760370071043,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 18,
+    "activity_mean": 29.421916013277396,
+    "activity_std": 28.834155568788713,
+    "activity_count": 4290,
+    "temperature_mean": 37.57403263403263,
+    "temperature_std": 0.7033794511029654,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 19,
+    "activity_mean": 26.399317984294928,
+    "activity_std": 29.216047331162933,
+    "activity_count": 4290,
+    "temperature_mean": 37.49189510489511,
+    "temperature_std": 0.7109293817744371,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 20,
+    "activity_mean": 22.940179218391958,
+    "activity_std": 27.584765877841154,
+    "activity_count": 4290,
+    "temperature_mean": 37.38956643356643,
+    "temperature_std": 0.7024472415785502,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 21,
+    "activity_mean": 21.824469730042633,
+    "activity_std": 26.89568498466572,
+    "activity_count": 4290,
+    "temperature_mean": 37.311624708624706,
+    "temperature_std": 0.6821523778339228,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 22,
+    "activity_mean": 19.444390683944615,
+    "activity_std": 25.409450429715356,
+    "activity_count": 4290,
+    "temperature_mean": 37.236687645687645,
+    "temperature_std": 0.6318757915590113,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 23,
+    "activity_mean": 11.709638132767603,
+    "activity_std": 20.615690021554823,
+    "activity_count": 4290,
+    "temperature_mean": 37.07858275058275,
+    "temperature_std": 0.5969311396857988,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 24,
+    "activity_mean": 9.216294341071203,
+    "activity_std": 18.120176615136444,
+    "activity_count": 4290,
+    "temperature_mean": 36.93777019480064,
+    "temperature_std": 0.6269132313179612,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 25,
+    "activity_mean": 10.891706758675221,
+    "activity_std": 19.642067901176603,
+    "activity_count": 4290,
+    "temperature_mean": 36.89197435897436,
+    "temperature_std": 0.6801929041421299,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 26,
+    "activity_mean": 10.964801864801865,
+    "activity_std": 19.6197691820331,
+    "activity_count": 4290,
+    "temperature_mean": 36.88843699820287,
+    "temperature_std": 0.6582502355255584,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 27,
+    "activity_mean": 12.997202797202798,
+    "activity_std": 20.735901459401493,
+    "activity_count": 4290,
+    "temperature_mean": 36.940288811760475,
+    "temperature_std": 0.6149708980235056,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 28,
+    "activity_mean": 10.705405000428089,
+    "activity_std": 18.785038773027363,
+    "activity_count": 4290,
+    "temperature_mean": 36.88762937062937,
+    "temperature_std": 0.5708391663669746,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 29,
+    "activity_mean": 10.566628954372886,
+    "activity_std": 19.363522737178698,
+    "activity_count": 4290,
+    "temperature_mean": 36.853892773892774,
+    "temperature_std": 0.6204252842866256,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 30,
+    "activity_mean": 7.875607181234455,
+    "activity_std": 15.960774365780441,
+    "activity_count": 4290,
+    "temperature_mean": 36.79138953929709,
+    "temperature_std": 0.5636866997959004,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 31,
+    "activity_mean": 8.846318828927334,
+    "activity_std": 17.56360245056803,
+    "activity_count": 4290,
+    "temperature_mean": 36.73717133152964,
+    "temperature_std": 0.5581859249259083,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 32,
+    "activity_mean": 8.217482517482518,
+    "activity_std": 16.142768324533833,
+    "activity_count": 4290,
+    "temperature_mean": 36.653963386496244,
+    "temperature_std": 0.5424392102190145,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 33,
+    "activity_mean": 7.801533629834103,
+    "activity_std": 16.070143363430955,
+    "activity_count": 4290,
+    "temperature_mean": 36.66236727921445,
+    "temperature_std": 0.6063603766544904,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 34,
+    "activity_mean": 7.560427290815991,
+    "activity_std": 16.19202338742474,
+    "activity_count": 4290,
+    "temperature_mean": 36.63160983779592,
+    "temperature_std": 0.637592011778176,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 35,
+    "activity_mean": 8.40887347021466,
+    "activity_std": 17.426259159377917,
+    "activity_count": 4290,
+    "temperature_mean": 36.57932619541617,
+    "temperature_std": 0.6705020721982305,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 36,
+    "activity_mean": 10.14944857213095,
+    "activity_std": 18.760301971721617,
+    "activity_count": 4290,
+    "temperature_mean": 36.62781629702764,
+    "temperature_std": 0.702305424276887,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 37,
+    "activity_mean": 10.681810922535158,
+    "activity_std": 19.60184410116723,
+    "activity_count": 4290,
+    "temperature_mean": 36.67428795038948,
+    "temperature_std": 0.6713161852450185,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 38,
+    "activity_mean": 10.303684835556338,
+    "activity_std": 19.598080381572395,
+    "activity_count": 4290,
+    "temperature_mean": 36.61116083916084,
+    "temperature_std": 0.6113304578209725,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 39,
+    "activity_mean": 9.317925797308844,
+    "activity_std": 18.750157358712865,
+    "activity_count": 4290,
+    "temperature_mean": 36.59828117260702,
+    "temperature_std": 0.6267494225598719,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 40,
+    "activity_mean": 8.421655401038446,
+    "activity_std": 17.284384746047202,
+    "activity_count": 4290,
+    "temperature_mean": 36.54889304252225,
+    "temperature_std": 0.5778694447339058,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 41,
+    "activity_mean": 11.695579930356606,
+    "activity_std": 20.697352920615455,
+    "activity_count": 4290,
+    "temperature_mean": 36.646913743827994,
+    "temperature_std": 0.6003567150034356,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 42,
+    "activity_mean": 10.765029119366712,
+    "activity_std": 19.68780955056927,
+    "activity_count": 4290,
+    "temperature_mean": 36.68729137529138,
+    "temperature_std": 0.557649014904488,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 43,
+    "activity_mean": 11.020753472385694,
+    "activity_std": 19.572785598079747,
+    "activity_count": 4290,
+    "temperature_mean": 36.71308158508158,
+    "temperature_std": 0.57973588455182,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 44,
+    "activity_mean": 13.312542644414147,
+    "activity_std": 21.73105094193392,
+    "activity_count": 4290,
+    "temperature_mean": 36.79393473193473,
+    "temperature_std": 0.606003189077849,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 45,
+    "activity_mean": 13.699955231826735,
+    "activity_std": 21.893585642860955,
+    "activity_count": 4290,
+    "temperature_mean": 36.8585944055944,
+    "temperature_std": 0.5927140637426225,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 46,
+    "activity_mean": 16.506661832049826,
+    "activity_std": 23.720998907289353,
+    "activity_count": 4290,
+    "temperature_mean": 36.968411297301344,
+    "temperature_std": 0.5639679253925461,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": false,
+    "hour": 47,
+    "activity_mean": 19.113205100518037,
+    "activity_std": 24.520477624608542,
+    "activity_count": 4290,
+    "temperature_mean": 37.15064801864802,
+    "temperature_std": 0.5871158424669456,
+    "temperature_count": 4290
+  },
+  {
+    "estrus": true,
+    "hour": 0,
+    "activity_mean": 31.14264108162503,
+    "activity_std": 26.553551354243417,
+    "activity_count": 1170,
+    "temperature_mean": 37.47693162393163,
+    "temperature_std": 0.67880567670885,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 1,
+    "activity_mean": 35.27277686780763,
+    "activity_std": 27.959578972500246,
+    "activity_count": 1170,
+    "temperature_mean": 37.694235719025414,
+    "temperature_std": 0.5430718898524217,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 2,
+    "activity_mean": 41.964989659170804,
+    "activity_std": 29.03124279944197,
+    "activity_count": 1170,
+    "temperature_mean": 37.9645163314219,
+    "temperature_std": 0.5597754193567624,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 3,
+    "activity_mean": 46.672311954499925,
+    "activity_std": 27.815312324512252,
+    "activity_count": 1170,
+    "temperature_mean": 38.09421367521368,
+    "temperature_std": 0.4975138589497269,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 4,
+    "activity_mean": 45.60377296565587,
+    "activity_std": 26.29001999278111,
+    "activity_count": 1170,
+    "temperature_mean": 38.105324786324786,
+    "temperature_std": 0.44472512110940976,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 5,
+    "activity_mean": 44.06337764933678,
+    "activity_std": 25.293717269532557,
+    "activity_count": 1170,
+    "temperature_mean": 38.089555555555556,
+    "temperature_std": 0.4427868514295141,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 6,
+    "activity_mean": 41.17909988287105,
+    "activity_std": 26.77456070212165,
+    "activity_count": 1170,
+    "temperature_mean": 38.029760683760685,
+    "temperature_std": 0.4786637847301277,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 7,
+    "activity_mean": 38.96926316344431,
+    "activity_std": 26.414832742219925,
+    "activity_count": 1170,
+    "temperature_mean": 37.961504273504275,
+    "temperature_std": 0.5367952558362424,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 8,
+    "activity_mean": 34.67946481509949,
+    "activity_std": 27.540619949545253,
+    "activity_count": 1170,
+    "temperature_mean": 37.848564102564104,
+    "temperature_std": 0.5882156018519121,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 9,
+    "activity_mean": 29.711503606297615,
+    "activity_std": 28.424518237731693,
+    "activity_count": 1170,
+    "temperature_mean": 37.73123076923077,
+    "temperature_std": 0.6359873591802307,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 10,
+    "activity_mean": 29.99624357843155,
+    "activity_std": 26.394627519680174,
+    "activity_count": 1170,
+    "temperature_mean": 37.6528547008547,
+    "temperature_std": 0.6607154955339082,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 11,
+    "activity_mean": 33.17863247863248,
+    "activity_std": 26.8970356505184,
+    "activity_count": 1170,
+    "temperature_mean": 37.73935042735043,
+    "temperature_std": 0.6378903600807809,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 12,
+    "activity_mean": 33.8625923740176,
+    "activity_std": 27.169094666357772,
+    "activity_count": 1170,
+    "temperature_mean": 37.78640170940171,
+    "temperature_std": 0.5922562383261626,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 13,
+    "activity_mean": 34.073754983109815,
+    "activity_std": 26.595327100961352,
+    "activity_count": 1170,
+    "temperature_mean": 37.80556266367854,
+    "temperature_std": 0.5923200565874783,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 14,
+    "activity_mean": 34.18151183495854,
+    "activity_std": 27.74866736823115,
+    "activity_count": 1170,
+    "temperature_mean": 37.72331623931624,
+    "temperature_std": 0.6565607131504072,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 15,
+    "activity_mean": 30.175213675213676,
+    "activity_std": 27.11306177976231,
+    "activity_count": 1170,
+    "temperature_mean": 37.662897435897435,
+    "temperature_std": 0.6184362282628547,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 16,
+    "activity_mean": 30.314629520342137,
+    "activity_std": 26.264138395388198,
+    "activity_count": 1170,
+    "temperature_mean": 37.6171452991453,
+    "temperature_std": 0.6503890165097564,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 17,
+    "activity_mean": 26.468376068376067,
+    "activity_std": 25.461847368975423,
+    "activity_count": 1170,
+    "temperature_mean": 37.47720512820513,
+    "temperature_std": 0.6475796622534361,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 18,
+    "activity_mean": 21.945299145299145,
+    "activity_std": 24.65592999230699,
+    "activity_count": 1170,
+    "temperature_mean": 37.34281835449217,
+    "temperature_std": 0.6191547716034317,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 19,
+    "activity_mean": 19.81965811965812,
+    "activity_std": 26.223083032232367,
+    "activity_count": 1170,
+    "temperature_mean": 37.19402564102564,
+    "temperature_std": 0.6578833904065171,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 20,
+    "activity_mean": 17.65609875224731,
+    "activity_std": 25.68227938444418,
+    "activity_count": 1170,
+    "temperature_mean": 37.10878632478632,
+    "temperature_std": 0.6342733774557918,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 21,
+    "activity_mean": 18.8681891658783,
+    "activity_std": 25.812188969147037,
+    "activity_count": 1170,
+    "temperature_mean": 37.15397435897436,
+    "temperature_std": 0.5963206399133172,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 22,
+    "activity_mean": 15.781988981218692,
+    "activity_std": 22.422096968840407,
+    "activity_count": 1170,
+    "temperature_mean": 37.027154998215195,
+    "temperature_std": 0.6122619445401064,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 23,
+    "activity_mean": 13.514178862063503,
+    "activity_std": 21.675700291607757,
+    "activity_count": 1170,
+    "temperature_mean": 36.931008547008545,
+    "temperature_std": 0.5947904792551779,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 24,
+    "activity_mean": 5.42991452991453,
+    "activity_std": 12.824096257332336,
+    "activity_count": 1170,
+    "temperature_mean": 36.61293563176726,
+    "temperature_std": 0.5232449338161534,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 25,
+    "activity_mean": 8.981196581196581,
+    "activity_std": 17.812097520247818,
+    "activity_count": 1170,
+    "temperature_mean": 36.55544444444445,
+    "temperature_std": 0.6010283594555836,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 26,
+    "activity_mean": 9.508547008547009,
+    "activity_std": 18.132447192033105,
+    "activity_count": 1170,
+    "temperature_mean": 36.60496581196581,
+    "temperature_std": 0.7111571124036096,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 27,
+    "activity_mean": 8.798290598290599,
+    "activity_std": 17.606729324899355,
+    "activity_count": 1170,
+    "temperature_mean": 36.59432892796311,
+    "temperature_std": 0.6839170877774117,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 28,
+    "activity_mean": 13.656815329360882,
+    "activity_std": 21.492742147625595,
+    "activity_count": 1170,
+    "temperature_mean": 36.703277031961804,
+    "temperature_std": 0.7398256132422881,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 29,
+    "activity_mean": 14.902564102564103,
+    "activity_std": 22.679243124446828,
+    "activity_count": 1170,
+    "temperature_mean": 36.8129558260717,
+    "temperature_std": 0.6789759012479923,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 30,
+    "activity_mean": 10.804273504273505,
+    "activity_std": 19.3036644608967,
+    "activity_count": 1170,
+    "temperature_mean": 36.66952136752136,
+    "temperature_std": 0.6236120478982496,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 31,
+    "activity_mean": 10.825253729024894,
+    "activity_std": 18.655994915237674,
+    "activity_count": 1170,
+    "temperature_mean": 36.6661452991453,
+    "temperature_std": 0.6710637313096114,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 32,
+    "activity_mean": 8.605982905982906,
+    "activity_std": 16.480419938041067,
+    "activity_count": 1170,
+    "temperature_mean": 36.60444444444444,
+    "temperature_std": 0.5681893027304387,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 33,
+    "activity_mean": 4.823076923076923,
+    "activity_std": 11.52333805222093,
+    "activity_count": 1170,
+    "temperature_mean": 36.45388888888889,
+    "temperature_std": 0.49291993734545064,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 34,
+    "activity_mean": 5.7675213675213675,
+    "activity_std": 13.057966632212596,
+    "activity_count": 1170,
+    "temperature_mean": 36.39061538461538,
+    "temperature_std": 0.6220232151405051,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 35,
+    "activity_mean": 9.24017094017094,
+    "activity_std": 16.68747377466596,
+    "activity_count": 1170,
+    "temperature_mean": 36.408358974358976,
+    "temperature_std": 0.6369905245301111,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 36,
+    "activity_mean": 8.579005157369561,
+    "activity_std": 17.72521583784536,
+    "activity_count": 1170,
+    "temperature_mean": 36.41459829059829,
+    "temperature_std": 0.6015445341082155,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 37,
+    "activity_mean": 12.06200586577703,
+    "activity_std": 21.46485540180753,
+    "activity_count": 1170,
+    "temperature_mean": 36.582794871794874,
+    "temperature_std": 0.7334241620736693,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 38,
+    "activity_mean": 11.390210993982159,
+    "activity_std": 20.609625157090456,
+    "activity_count": 1170,
+    "temperature_mean": 36.70472848641525,
+    "temperature_std": 0.8098344308522832,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 39,
+    "activity_mean": 12.651585305551977,
+    "activity_std": 20.92296685069986,
+    "activity_count": 1170,
+    "temperature_mean": 36.726735042735044,
+    "temperature_std": 0.7919054388032732,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 40,
+    "activity_mean": 8.841880341880342,
+    "activity_std": 17.86872929516317,
+    "activity_count": 1170,
+    "temperature_mean": 36.522401709401706,
+    "temperature_std": 0.6746107778729917,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 41,
+    "activity_mean": 10.008547008547009,
+    "activity_std": 18.89799538864055,
+    "activity_count": 1170,
+    "temperature_mean": 36.54009513087946,
+    "temperature_std": 0.596018307424115,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 42,
+    "activity_mean": 11.002596496777644,
+    "activity_std": 18.85576792736405,
+    "activity_count": 1170,
+    "temperature_mean": 36.63554700854701,
+    "temperature_std": 0.6380151937356864,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 43,
+    "activity_mean": 12.324786324786325,
+    "activity_std": 20.553349829617364,
+    "activity_count": 1170,
+    "temperature_mean": 36.765721812640926,
+    "temperature_std": 0.6168521367591465,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 44,
+    "activity_mean": 12.442735042735043,
+    "activity_std": 20.62742664259214,
+    "activity_count": 1170,
+    "temperature_mean": 36.78809401709402,
+    "temperature_std": 0.5205784517529792,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 45,
+    "activity_mean": 11.185470085470085,
+    "activity_std": 19.550438223304038,
+    "activity_count": 1170,
+    "temperature_mean": 36.763658119658125,
+    "temperature_std": 0.5536794593928106,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 46,
+    "activity_mean": 15.744444444444444,
+    "activity_std": 22.836432346896466,
+    "activity_count": 1170,
+    "temperature_mean": 36.88192307692307,
+    "temperature_std": 0.6203474378179484,
+    "temperature_count": 1170
+  },
+  {
+    "estrus": true,
+    "hour": 47,
+    "activity_mean": 17.02820512820513,
+    "activity_std": 23.85513861518465,
+    "activity_count": 1170,
+    "temperature_mean": 37.03219658119658,
+    "temperature_std": 0.616922364167511,
+    "temperature_count": 1170
+  }
+]
