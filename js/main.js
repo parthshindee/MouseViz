@@ -1,7 +1,7 @@
 // project/js/main.js
 (async function() {
-    const summary = await d3.json("../data/summary_phase1.json");
-    const hourly  = await d3.json("../data/hourly_phase1.json");
+    const summary = await d3.json("data/summary_phase1.json");
+    const hourly  = await d3.json("data/hourly_phase1.json");
     const color   = estrus => estrus ? "#d62728" : "#888";
   
     // tooltip
@@ -155,7 +155,7 @@
           .style("font-size","12px")
           .text(isAct ? "Mean Activity" : "Mean Temperature");
     }
-    
+
     drawSummary("#summary-activity","activity");
     drawSummary("#summary-temperature","temperature");
   
