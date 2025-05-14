@@ -165,8 +165,14 @@
     function drawGrid(containerId, metricKey) {
       const byDay    = d3.group(hourly, d => d.day);
       const container= d3.select(containerId);
+
+      container.on("click", function(event) {
+        if (event.target === this) {
+          container.selectAll(".chart").classed("selected", false);
+        }
+      });
   
-      const margin  = { top: 10, right: 5, bottom: 20, left: 25 };
+      const margin  = { top: 10, right: 5, bottom: 30, left: 25 };
       const width   = 150 - margin.left - margin.right;
       const height  = 120 - margin.top  - margin.bottom;
   
@@ -210,6 +216,7 @@
           .on("click", function() {
             container.selectAll(".chart").classed("selected", false);
             cell.classed("selected", true);
+            d3.event && d3.event.stopPropagation();
           });
   
         // axes
@@ -233,7 +240,7 @@
         svg.append("text")
           .attr("class","chart-label")
           .attr("x", width/2)
-          .attr("y", height + margin.bottom + 4)
+          .attr("y", height + margin.bottom - 4)
           .text(`Day ${day}`);
       });
     }
