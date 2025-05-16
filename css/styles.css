@@ -83,6 +83,24 @@ h1 {
     height: 400px;
     display: block;
 }
+
+/* timeline container */
+#timeline-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  #timeline {
+    flex: 1;
+    height: 60px;
+    border: 1px solid #ddd;
+  }
+  .brush .selection {
+    fill: #219ebc;
+    fill-opacity: 0.3;
+    stroke: #219ebc;
+  }
   
 /* TOOLTIP */
 .tooltip {

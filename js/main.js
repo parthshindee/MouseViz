@@ -127,18 +127,83 @@
     .attr("stroke","#d62728")
     .attr("stroke-width",2);
 
-  // annotations group
-  const annG = svg.append("g").attr("class", "annotations");
+  const annG = svg.append("g").attr("class","annotations");
+  const tooltip = d3.select("body").append("div").attr("class","tooltip");
 
-  // tooltip
-  const tooltip = d3.select("body").append("div")
-    .attr("class","tooltip");
+  // ────────────────────────────────────────────────────────────────────────────
+  // TIMELINE BRUSH SETUP
+  // ────────────────────────────────────────────────────────────────────────────
+  const tlSvg = d3.select("#timeline");
+  const tlMargin = { top:0, right:20, bottom:20, left:20 };
+  const tlHeight = 60 - tlMargin.top - tlMargin.bottom;
+  function getTlWidth() {
+    return parseInt(d3.select("#timeline-container").style("width"))
+           - tlMargin.left - tlMargin.right;
+  }
+  let tlWidth = getTlWidth();
 
-  // invisible rect for mouse events
-  const hoverRect = svg.append("rect")
-    .attr("class", "hover-rect")
-    .attr("fill", "none")
-    .attr("pointer-events", "all");
+  tlSvg
+    .attr("width",  tlWidth + tlMargin.left + tlMargin.right)
+    .attr("height", tlHeight + tlMargin.top + tlMargin.bottom);
+
+  const tlG = tlSvg.append("g")
+    .attr("transform", `translate(${tlMargin.left},${tlMargin.top})`);
+
+  // x‐scale for days 0–13
+  const xTl = d3.scaleLinear()
+    .domain([0,13])
+    .range([0, tlWidth]);
+
+  // draw tick axis
+  tlG.append("g")
+    .attr("class","axis-tl")
+    .attr("transform", `translate(0,${tlHeight})`)
+    .call(d3.axisBottom(xTl).ticks(14).tickFormat(d3.format("d")))
+    .selectAll("text")
+      .style("font-size","10px");
+
+  // brush
+  const brush = d3.brushX()
+    .extent([[0,0],[tlWidth, tlHeight]])
+    .on("brush end", brushed);
+
+  tlG.append("g")
+    .attr("class","brush")
+    .call(brush)
+    // initial full‐range selection
+    .call(brush.move, xTl.range());
+
+  // on brush, update state.dayRange & chart
+  function brushed({selection}) {
+    if (!selection) return;
+    let [x0,x1] = selection;
+    let d0 = Math.round(xTl.invert(x0));
+    let d1 = Math.round(xTl.invert(x1));
+    d0 = Math.max(0, Math.min(13, d0));
+    d1 = Math.max(0, Math.min(13, d1));
+    state.dayRange = [Math.min(d0,d1), Math.max(d0,d1)];
+    updateChart();
+  }
+
+  // handle resize of both charts and timeline
+  function handleResize() {
+    width = getWidth();
+    svgEl.attr("width", width + margin.left + margin.right);
+    xLabel.attr("x", width/2);
+
+    // update timeline width
+    tlWidth = getTlWidth();
+    tlSvg.attr("width", tlWidth + tlMargin.left + tlMargin.right);
+    xTl.range([0, tlWidth]);
+    tlG.select(".axis-tl")
+      .call(d3.axisBottom(xTl).ticks(14).tickFormat(d3.format("d")));
+    tlG.select(".brush")
+      .call(brush.extent([[0,0],[tlWidth, tlHeight]]))
+      .call(brush.move, xTl.range());
+    
+    updateChart();
+  }
+  window.addEventListener("resize", handleResize);
 
   // ────────────────────────────────────────────────────────────────────────────
   // updateChart: filter, aggregate, redraw

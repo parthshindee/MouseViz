@@ -18,13 +18,6 @@
         <!-- Control Bar -->
         <div id="controls">
             <div class="control-group">
-                <label for="day-min">Days:</label>
-                <input type="range" id="day-min" min="0" max="13" value="0">
-                <input type="range" id="day-max" min="0" max="13" value="13">
-                <span id="range-label">0-13</span>
-            </div>
-
-            <div class="control-group">
                 <label for="bin-select">Bin Size:</label>
                 <select id="bin-select">
                     <option value="5">5 min</option>
@@ -50,6 +43,12 @@
         <!-- Main chart container -->
         <div id="chart-container">
             <svg id="main-chart"></svg>
+        </div>
+
+        <!-- Day‐timeline brush -->
+        <div id="timeline-container">
+            <label>Days: </label>
+            <svg id="timeline"></svg>
         </div>
 
         <script src="https://d3js.org/d3.v7.min.js"></script>
