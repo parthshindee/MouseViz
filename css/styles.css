@@ -105,6 +105,12 @@ h1 {
     font-size: 10px;
     fill: #000;
 }
+
+/* Axis labels */
+.axis-label {
+    font-size: 12px;
+    fill: #333;
+}
   
 @media (max-width: 600px) {
     #controls {
