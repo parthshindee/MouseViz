@@ -45,11 +45,51 @@
             <svg id="main-chart"></svg>
         </div>
 
-        <!-- Day‐timeline brush -->
+        <!-- Day-timeline brush -->
         <div id="timeline-container">
             <svg id="timeline"></svg>
             <div class="timeline-label">Days</div>
-          </div>
+        </div>
+
+        <!-- Write-Up -->
+        <div class="writeup">
+            <h2>Project 3 Write-Up</h2>
+            <section>
+                <h3>Design Rationale</h3>
+                <p>
+                    The design uses a single-line profile with dynamic axes to clearly show changes 
+                    in activity, temperature, and their ratio over time. Below the main graph, a 
+                    D3 brush acts as a day range selector, letting users easily adjust the time window 
+                    without leaving the data view. This setup keeps the interaction intuitive and fluid, 
+                    allowing users to see immediate feedback on the main chart. The primary chart uses 
+                    position to make comparisons straightforward, while subtle annotations like "Lights Off" 
+                    and "Lights On" provide context without adding clutter. Tooltips offer extra details 
+                    as needed, keeping the interface clean and focused. While I considered small multiples
+                    and dual-thumb sliders, this layout felt more intuitive, engaging and less confusing.
+                </p>
+            </section>
+
+            <section>
+                <h3>Development Process</h3>
+                <p>
+                    In total I spent ~30 person-hours on this project.  The work split roughly as follows:
+                </p>
+                <ul>
+                    <li><strong>Data & EDA (8 hrs):</strong> cleaned and binned the mouse data in Python,
+                    produced JSON exports at multiple resolutions.</li>
+                    <li><strong>Visualization & Interaction (17 hrs):</strong> implemented the main D3 chart,
+                    brush, dynamic axes, tooltips, and responsive layout.</li>
+                    <li><strong>Styling & Write-Up (5 hrs):</strong> refined the CSS, wrote this rationale,
+                    and iterated on the visual design to look more appealing.</li>
+                </ul>
+                <p>
+                    The most time-consuming part was integrating the brush and making the chart fully
+                    responsive (resizing axes, relaying brush extents). Overall, I found that
+                    D3's built-in behaviors let me focus on interaction design rather than low-level handling.
+                </p>
+            </section>
+        </div>
+
 
         <script src="https://d3js.org/d3.v7.min.js"></script>
         <script src="js/main.js"></script>
