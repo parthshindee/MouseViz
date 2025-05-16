@@ -113,6 +113,13 @@
     .attr("text-anchor", "middle")
     .style("font-size", "12px");
 
+  const xLabel = svg.append("text")
+    .attr("class","axis-label")
+    .attr("x", width/2)
+    .attr("y", height + margin.bottom - 10)
+    .attr("text-anchor","middle")
+    .style("font-size","12px");
+
   // line path
   const linePath = svg.append("path")
     .attr("class","line")
@@ -139,6 +146,7 @@
   function updateChart() {
     width = getWidth();
     svgEl.attr("width", width + margin.left + margin.right);
+    xLabel.attr("x", width/2);
 
     const raw = dataByBin[state.binSize];
     const filt = raw.filter(d =>
@@ -157,7 +165,8 @@
     const data = rolls.map(([bin,val]) => ({ bin, value: val })).sort((a,b) => a.bin - b.bin);
 
     const xScale = d3.scaleLinear()
-      .domain(d3.extent(data, d => d.bin)).range([0, width]);
+      .domain(d3.extent(data, d => d.bin))
+      .range([0, width]);
     const yScale = d3.scaleLinear()
       .domain(d3.extent(data, d => d.value)).nice()
       .range([height, 0]);
@@ -165,6 +174,8 @@
     xAxisG.call(d3.axisBottom(xScale).ticks(8)).selectAll("text").style("font-size","10px");
     yAxisG.call(d3.axisLeft(yScale).ticks(6)).selectAll("text").style("font-size","10px");
 
+
+    xLabel.text(`Time of Day (bins of ${state.binSize} min)`);
     yLabel.text(metricOptions[state.metric]);
 
     const lineGen = d3.line()
@@ -207,10 +218,19 @@
       })
       .on("mouseout", () => tooltip.style("opacity",0));
 
+    // subtitle: include estrus days count
+    const [d0,d1] = state.dayRange;
+    const totalDays = d1 - d0 + 1;
+    const estrusCount = d3.sum(
+      d3.range(d0,d1+1),
+      day => day % 4 === 2 ? 1 : 0
+    );
+
     subtitle.html(
-      `Showing days <strong>${state.dayRange[0]}-${state.dayRange[1]}</strong>, ` +
-      `bin = <strong>${state.binSize} min</strong>, ` +
-      `metric = <strong>${metricOptions[state.metric]}</strong>`
+      `Showing days <strong>${d0}-${d1}</strong> `
+      + `(Estrus days: <strong>${estrusCount}/${totalDays}</strong>), `
+      + `bin = <strong>${state.binSize} min</strong>, `
+      + `metric = <strong>${metricOptions[state.metric]}</strong>`
     );
   }
 
