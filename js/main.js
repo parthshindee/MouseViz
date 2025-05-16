@@ -30,35 +30,9 @@
   // ────────────────────────────────────────────────────────────────────────────
   // Set up controls
   // ────────────────────────────────────────────────────────────────────────────
-  const dayMinInput = d3.select("#day-min");
-  const dayMaxInput = d3.select("#day-max");
-  const rangeLabel = d3.select("#range-label");
   const binSelect = d3.select("#bin-select");
   const metricButtons = d3.selectAll(".toggle-button");
   const subtitle = d3.select("#subtitle");
-
-  function updateRangeLabel() {
-    const [d0, d1] = state.dayRange;
-    rangeLabel.text(`${d0}-${d1}`);
-  }
-
-  dayMinInput.on("input", function() {
-    const d0 = +this.value, d1 = state.dayRange[1];
-    if (d0 <= d1) {
-      state.dayRange[0] = d0;
-      updateRangeLabel();
-      updateChart();
-    }
-  });
-
-  dayMaxInput.on("input", function() {
-    const d1 = +this.value, d0 = state.dayRange[0];
-    if (d1 >= d0) {
-      state.dayRange[1] = d1;
-      updateRangeLabel();
-      updateChart();
-    }
-  });
 
   binSelect.on("change", function() {
     state.binSize = +this.value;
@@ -71,9 +45,6 @@
     state.metric = d3.select(this).attr("data-metric");
     updateChart();
   });
-
-  // initialize range label
-  updateRangeLabel();
 
   // ────────────────────────────────────────────────────────────────────────────
   // SVG & scales setup
@@ -129,6 +100,11 @@
 
   const annG = svg.append("g").attr("class","annotations");
   const tooltip = d3.select("body").append("div").attr("class","tooltip");
+
+  const hoverRect = svg.append("rect")
+    .attr("class","hover-rect")
+    .attr("fill","none")
+    .attr("pointer-events","all");
 
   // ────────────────────────────────────────────────────────────────────────────
   // TIMELINE BRUSH SETUP
@@ -273,23 +249,18 @@
         const bin = Math.round(xScale.invert(mx));
         const match = data.find(d => d.bin === bin);
         if (!match) return;
-        tooltip.html(
-          `Bin: <strong>${bin}</strong><br>` +
-          `${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`
-        )
-        .style("opacity",1)
-        .style("left", (event.pageX + 10) + "px")
-        .style("top", (event.pageY + 10) + "px");
-      })
-      .on("mouseout", () => tooltip.style("opacity",0));
+        tooltip
+          .html(`Bin: <strong>${bin}</strong><br>${metricOptions[state.metric]}: <strong>${match.value.toFixed(2)}</strong>`)
+          .style("opacity",1)
+          .style("left", `${event.pageX+10}px`)
+          .style("top",  `${event.pageY+10}px`);
+        })
+        .on("mouseout", () => tooltip.style("opacity",0));
 
     // subtitle: include estrus days count
     const [d0,d1] = state.dayRange;
     const totalDays = d1 - d0 + 1;
-    const estrusCount = d3.sum(
-      d3.range(d0,d1+1),
-      day => day % 4 === 2 ? 1 : 0
-    );
+    const estrusCount = d3.sum(d3.range(d0,d1+1), day=>day%4===2);
 
     subtitle.html(
       `Showing days <strong>${d0}-${d1}</strong> `
